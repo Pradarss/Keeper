@@ -32,7 +32,7 @@ function App() {
       response.json();
     })
     .then(function(data){
-      console.log(data);
+      // console.log(data);
       setNotes((prevNotes)=>[...prevNotes, newNote]);
     })
     .catch(function(err){
@@ -41,10 +41,23 @@ function App() {
   }
 
   function deleteNote(id){
-    setNotes(prevNote =>{
-      return prevNote.filter((note, index) =>{
-        return index !== id;
-      })
+    // setNotes(prevNote =>{
+    //   return prevNote.filter((note, index) =>{
+    //     return index !== id;
+    //   })
+    // })
+    fetch("http://localhost:5000/notes",{
+      method: "DELETE",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(id.title)
+    })
+    .then(function(response){
+      response.json();
+    })
+    .catch(function(err){
+      console.log(err);
     })
   }
 
