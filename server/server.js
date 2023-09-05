@@ -44,7 +44,7 @@ app.get("/notes", function(req,res){
 })
 
 app.post("/notes", function(req,res){
-    console.log(req.body)
+    // console.log(req.body)
     const newNote = new Note({
         title: req.body.title,
         content: req.body.content
@@ -53,12 +53,16 @@ app.post("/notes", function(req,res){
     newNote.save()
     .then(function(savedNote){
         console.log("Note saved successfully");
-        console.log(savedNote)
+        // console.log(savedNote)
         res.json(savedNote);
     })
     .catch(function(err){
         console.log(err);
     })
+})
+
+app.delete("/notes", function(req,res){
+    
 })
 
 app.listen(port, function() {
