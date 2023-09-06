@@ -17,12 +17,20 @@ header {
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  justify-content: space-between;
+  display: flex;
 }
 
-header h1 {
+header h1,button {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  background-color: #f5ba13;
+  color: white; 
+  border: none;
+  padding: 10px 20px;   
+  cursor: pointer;
+  font-size: 2rem;
 }
 
 footer {
@@ -101,4 +109,29 @@ form.create-note button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;
+}
+
+.home{
+  height: 90%;
+  width: 100%;
+  left: 0%;
+  top: 10%;
+  position: absolute;
+  background: #f5ba13;
+}
+
+.home h1{
+  font-size: 5rem;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  top: 25vh;
+}
+
+.home p{
+  font-size: 3rem;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  top: 31vh;
 }

@@ -3,9 +3,12 @@ import Footer from './Footer';
 import Header from './Header';
 import Note from './Note';
 import CreateArea from "./CreateArea";
+import Home from "./Home";
 
 function App() {
   const [notes, setNotes] = useState([]);
+
+  const isLoggedIn = false;
 
   useEffect(()=>{
     fetch('/notes')
@@ -67,7 +70,7 @@ function App() {
   }
 
   return (
-    <div>
+    isLoggedIn?<div>
       <Header />
       <CreateArea onAdd={addNote} />
       {notes.map((note) => (
@@ -79,6 +82,10 @@ function App() {
           onDelete = {deleteNote}
         />
       ))}
+      <Footer />
+    </div> : <div>
+      <Header />
+      <Home />
       <Footer />
     </div>
   );
