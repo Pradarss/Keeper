@@ -3,12 +3,11 @@ import Footer from './Footer';
 import Header from './Header';
 import Note from './Note';
 import CreateArea from "./CreateArea";
-import Home from "./Home";
+// import Home from "./Home";
 
 function App() {
   const [notes, setNotes] = useState([]);
-
-  const isLoggedIn = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(()=>{
     fetch('/notes')
@@ -22,6 +21,10 @@ function App() {
       console.log(err);
     })
   }, []);
+
+  // function handleLoginSuccess(){
+  //   setIsLoggedIn('false')
+  // }
 
   function addNote(newNote){
     fetch("http://localhost:5000/notes",{
@@ -85,7 +88,7 @@ function App() {
       <Footer />
     </div> : <div>
       <Header />
-      <Home />
+      {/* <Home /> */}
       <Footer />
     </div>
   );
