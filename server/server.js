@@ -26,10 +26,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/keeperDB", {useNewUrlParser: true})
     console.log(err);
 })
 
-const notesSchema = {
+const notesSchema = new mongoose.Schema({
     title: String,
     content: String
-  };
+  });
 
 const Note = mongoose.model("Note", notesSchema);
 
@@ -61,9 +61,22 @@ app.post("/notes", function(req,res){
     })
 })
 
-app.delete("/notes", function(req,res){
-    
-})
+app.delete("/notes/:id", function(req,res){
+    const noteId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(noteId)) {
+        return res.status(400).json({ error: "Invalid note ID" });
+      }
+    // console.log(titletodelete);
+    Note.deleteOne({_id: noteId})
+    .then(function(){
+        res.status(204).send();
+        console.log("Sucessfully deleted")
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+})  
 
 app.listen(port, function() {
     console.log("Server started on port 5000");

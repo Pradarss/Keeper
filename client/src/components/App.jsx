@@ -41,20 +41,25 @@ function App() {
   }
 
   function deleteNote(id){
-    // setNotes(prevNote =>{
-    //   return prevNote.filter((note, index) =>{
-    //     return index !== id;
-    //   })
-    // })
-    fetch("http://localhost:5000/notes",{
+    console.log("Deleting note with ID:", id); 
+    fetch(`http://localhost:5000/notes/${id}`,{
       method: "DELETE",
       headers: {
         "Content-Type":"application/json"
       },
-      body: JSON.stringify(id.title)
+      body: JSON.stringify({ id: id }),
     })
     .then(function(response){
-      response.json();
+      console.log("Response status:", response.status);
+      if(response.ok){
+        setNotes((prevNotes) =>
+          prevNotes.filter((note) => note._id !== id)
+        );
+        console.log("Successfully deleted")
+      }
+      else{
+        console.log("failed to delete node");
+      }
     })
     .catch(function(err){
       console.log(err);
@@ -65,10 +70,10 @@ function App() {
     <div>
       <Header />
       <CreateArea onAdd={addNote} />
-      {notes.map((note, index) => (
+      {notes.map((note) => (
         <Note
-          key = {index}
-          id = {index}
+          id={note._id}
+          key = {note._id}
           title={note.title}
           content={note.content}
           onDelete = {deleteNote}
