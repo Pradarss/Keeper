@@ -1,25 +1,20 @@
-    import React, { useState } from 'react';
-    import Home from "./Home";
+    import React from 'react';
 
-    function Header(){
-        const [isLoginClicked, setIsLoginClicked] = useState(true);
+    function Header({LoginClicked, isLoginClicked}){
+        // const [isLoginClicked, setisLoginClicked] = useState(false)
+        // const isLoginClicked = true;
 
-        function handleLoginClick() {
-        setIsLoginClicked(false);
-        }
-
-        function handleTitleClick(){
-            setIsLoginClicked(true);
-        }
+        // function handleLoginClick(){
+        //     setisLoginClicked(true);
+        // }
 
         return (    <div>
             <header>
-            <button onClick={handleTitleClick}>Keeper</button>
-            {isLoginClicked ? (
-                <button onClick={handleLoginClick}>Login</button>
-            ) : null}
+            <button>Keeper</button>
+            {isLoginClicked ?
+             <button>Logout</button>
+             : <button onClick={LoginClicked}>Login</button>}
             </header>
-            <Home isLoginClicked={isLoginClicked} />
         </div>
         );
     }

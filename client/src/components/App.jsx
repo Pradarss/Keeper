@@ -3,11 +3,16 @@ import Footer from './Footer';
 import Header from './Header';
 import Note from './Note';
 import CreateArea from "./CreateArea";
-// import Home from "./Home";
+import Home from './Home';
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+
+  function handleLoginSuccess(){
+    setisLoggedIn(true);
+  }
 
   useEffect(()=>{
     fetch('/notes')
@@ -22,10 +27,6 @@ function App() {
     })
   }, []);
 
-  // function handleLoginSuccess(){
-  //   setIsLoggedIn('false')
-  // }
-
   function addNote(newNote){
     fetch("http://localhost:5000/notes",{
       method: "POST",
@@ -36,7 +37,7 @@ function App() {
     })
     .then(function(response){
       response.json();
-    })
+    })  
     .then(function(data){
       // console.log(data);
       setNotes((prevNotes)=>[...prevNotes, newNote]);
@@ -87,9 +88,7 @@ function App() {
       ))}
       <Footer />
     </div> : <div>
-      <Header />
-      {/* <Home /> */}
-      <Footer />
+      <Home handleLoginSuccess={handleLoginSuccess}/>
     </div>
   );
 }

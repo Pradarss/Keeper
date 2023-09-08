@@ -125,15 +125,15 @@ form.create-note button {
   justify-content: center;
   display: flex;
   position: relative;
-  top: 25vh;
+  top: 40vh;
 }
 
-.home p{
+.home p {
   font-size: 3rem;
   justify-content: center;
   display: flex;
   position: relative;
-  top: 31vh;
+  top: 45vh;
 }
 
 #loginform{
