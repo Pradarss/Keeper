@@ -21,7 +21,7 @@ header {
   display: flex;
 }
 
-header h1,header button {
+header .title {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
@@ -31,6 +31,7 @@ header h1,header button {
   padding: 10px 20px;   
   cursor: pointer;
   font-size: 2rem;
+  text-decoration: none;
 }
 
 footer {

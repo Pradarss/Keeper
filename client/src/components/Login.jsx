@@ -1,48 +1,54 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login({onLoginSuccess}){
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const [isSubmitClicked , setSubmitClicked] = useState(false);
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
 
-    // const isSubmitClicked = true;
-  
-    function handleEmailChange(e){
-      setEmail(e.target.value);
-    };
-  
-    function handlePasswordChange(e){
-      setPassword(e.target.value);
-    };
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
 
-    function handleLogin(e){    
-        e.preventDefault();
-        onLoginSuccess();
-    }
+  function handleLogin(e) {
+    e.preventDefault();
+    navigate('/notes');
+  }
 
-
-
-    return(
+  return (
     <div id="loginform">
-        <h2 id="headerTitle">Login/SignUp</h2>
-        <form onSubmit={handleLogin}>
-    <div className="row">
-    <label>Email</label>
-    <input  value={email} onChange={handleEmailChange} type="text" placeholder="Enter your email" required/>
+      <h2 id="headerTitle">Login/SignUp</h2>
+      <form onSubmit={handleLogin}>
+        <div className="row">
+          <label>Email</label>
+          <input
+            value={email}
+            onChange={handleEmailChange}
+            type="text"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div className="row">
+          <label>Password</label>
+          <input
+            value={password}
+            onChange={handlePasswordChange}
+            type="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <div id="button" className="row">
+          <button onClick={handleLogin} type="submit">Submit</button>
+        </div>
+      </form>
     </div>
-    <div className="row">
-    <label>Password</label>
-    <input value={password} onChange={handlePasswordChange} type="password" placeholder="Enter your password" required/>
-  </div>
-    <div id="button" className="row">
-    <button onClick={handleLogin} type="submit">Submit</button>
-  </div>
-        {/* <div id="alternativeLogin">
-     <label >Or sign in with:</label>
-     </div> */}
-     </form>
-    </div>)
+  );
 }
 
 export default Login;

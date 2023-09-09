@@ -1,22 +1,16 @@
-    import React from 'react';
+// Header.js
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-    function Header({LoginClicked, isLoginClicked}){
-        // const [isLoginClicked, setisLoginClicked] = useState(false)
-        // const isLoginClicked = true;
+function Header({isLoggedIn}) {
+  return (
+    <div>
+      <header>
+        <Link className='title' to="/">Keeper</Link>
+        {isLoggedIn? <Link className='title' to="/logout">Logout</Link> : <Link className='title' to="/login">Login</Link>}
+      </header>
+    </div>
+  );
+}
 
-        // function handleLoginClick(){
-        //     setisLoginClicked(true);
-        // }
-
-        return (    <div>
-            <header>
-            <button>Keeper</button>
-            {isLoginClicked ?
-             <button>Logout</button>
-             : <button onClick={LoginClicked}>Login</button>}
-            </header>
-        </div>
-        );
-    }
-
-    export default Header;
+export default Header;

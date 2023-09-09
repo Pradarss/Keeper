@@ -1,95 +1,108 @@
+// App.js
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import Note from './Note';
-import CreateArea from "./CreateArea";
+import CreateArea from './CreateArea';
 import Home from './Home';
+import Login from './Login';
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [isLoggedIn, setisLoggedIn] = useState(false);
-
-  function handleLoginSuccess(){
-    setisLoggedIn(true);
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch('/notes')
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(data){
-      setNotes(data);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        setNotes(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   }, []);
 
-  function addNote(newNote){
-    fetch("http://localhost:5000/notes",{
-      method: "POST",
+  function addNote(newNote) {
+    fetch('http://localhost:5000/notes', {
+      method: 'POST',
       headers: {
-        "Content-Type":"application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newNote)
+      body: JSON.stringify(newNote),
     })
-    .then(function(response){
-      response.json();
-    })  
-    .then(function(data){
-      // console.log(data);
-      setNotes((prevNotes)=>[...prevNotes, newNote]);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        setNotes((prevNotes) => [...prevNotes, newNote]);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   }
 
-  function deleteNote(id){
-    console.log("Deleting note with ID:", id); 
-    fetch(`http://localhost:5000/notes/${id}`,{
-      method: "DELETE",
+  function deleteNote(id) {
+    fetch(`http://localhost:5000/notes/${id}`, {
+      method: 'DELETE',
       headers: {
-        "Content-Type":"application/json"
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id: id }),
     })
-    .then(function(response){
-      console.log("Response status:", response.status);
-      if(response.ok){
-        setNotes((prevNotes) =>
-          prevNotes.filter((note) => note._id !== id)
-        );
-        console.log("Successfully deleted")
-      }
-      else{
-        console.log("failed to delete node");
-      }
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+      .then(function (response) {
+        if (response.ok) {
+          setNotes((prevNotes) =>
+            prevNotes.filter((note) => note._id !== id)
+          );
+        } else {
+          console.log('Failed to delete note');
+          alert("not deleted");
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+
+  function handleLogin(){
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout(){
+    setIsLoggedIn(true);
   }
 
   return (
-    isLoggedIn?<div>
-      <Header />
-      <CreateArea onAdd={addNote} />
-      {notes.map((note) => (
-        <Note
-          id={note._id}
-          key = {note._id}
-          title={note.title}
-          content={note.content}
-          onDelete = {deleteNote}
-        />
-      ))}
-      <Footer />
-    </div> : <div>
-      <Home handleLoginSuccess={handleLoginSuccess}/>
-    </div>
+    <Router>
+      <div>
+        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout}/>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/login" element={<Login onLoginSuccess={handleLogin}/>} />
+          <Route
+            path="/notes"
+            element ={
+              <div>
+                <CreateArea onAdd={addNote} />
+                {notes.map((note) => (
+                  <Note
+                    id={note._id}
+                    key={note._id}
+                    title={note.title}
+                    content={note.content}
+                    onDelete={deleteNote}
+                  />
+                ))}
+              </div>
+            }
+          />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
