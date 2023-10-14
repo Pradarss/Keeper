@@ -14,7 +14,7 @@ function Home(){
         <div className="home">
        
           <StickyNote2Icon style= {iconStyle}/>
-          <h1>Keeper</h1>
+          <h1>Adarsh</h1>
           <p className="homeContent">Keep your notes safe and secure</p>
         
         </div>)
