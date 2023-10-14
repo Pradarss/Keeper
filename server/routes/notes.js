@@ -4,13 +4,22 @@ const Note = require('../models/note');
 
 
 router.get('/notes', (req, res) => {
+  // Note.find({})
+  // .populate('user')
+  //   .then((foundNotes) => {
+  //     res.json(foundNotes);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
   Note.find({})
-    .then((foundNotes) => {
-      res.json(foundNotes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  .then(function(foundNotes){
+    res.json(foundNotes);
+  })
+  .catch(function(err){
+    console.log(err);
+  })
 });
 
 
@@ -18,6 +27,7 @@ router.post('/notes', (req, res) => {
   const newNote = new Note({
     title: req.body.title,
     content: req.body.content,
+    user: req.user._id
   });
 
   newNote

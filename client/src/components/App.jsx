@@ -11,8 +11,30 @@ import Login from './Login';
 function App() {
   const [notes, setNotes] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [UserData, setUserData] = useState(null);
 
   useEffect(() => {
+
+    // fetch('/user-data', {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       return response.json();
+    //     } else {
+    //       throw new Error('Failed to fetch user data');
+    //     }
+    //   })
+    //   .then((data) => {
+    //     setUserData(data); // Assuming the user data contains _id
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching user data:', error);
+    //   });
+
     fetch('/notes')
       .then(function (response) {
         return response.json();
@@ -93,6 +115,7 @@ function App() {
                     key={note._id}
                     title={note.title}
                     content={note.content}
+                    // user={UserData._id}/
                     onDelete={deleteNote}
                   />
                 ))}

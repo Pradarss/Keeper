@@ -2,21 +2,43 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
+  function handleUsernameChange(e) {
+    setUsername(e.target.value);
   }
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-    navigate('/notes');
+
+    const credentials = {
+      username,
+      password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (response.status === 200) {
+        navigate('/notes');
+      } else {
+        console.log('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   }
 
   return (
@@ -26,8 +48,8 @@ function Login() {
         <div className="row">
           <label>Email</label>
           <input
-            value={email}
-            onChange={handleEmailChange}
+            value={username}
+            onChange={handleUsernameChange}
             type="text"
             placeholder="Enter your email"
             required

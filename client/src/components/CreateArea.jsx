@@ -26,7 +26,8 @@ function CreateArea({onAdd}) {
       onAdd(newNote);
       setNewNote({
         title: "",
-        content: ""
+        content: "",
+        // userId: ""
       });
     }
   }

@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
-
-// mongoose.connect("mongodb://127.0.0.1:27017/keeperUserDB", {useNewUrlParser: true})
-// .then(function(){
-//     console.log("Successfully connected to mongoDB")
-// })
-// .catch(function(err){
-//     console.log(err);
-// })
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = mongoose.Schema({
-    email: String,
-    password: String
+    username: {
+        type: String,
+        unique: true
+    },
+    password: String,
 })
+
+userSchema.plugin(passportLocalMongoose);
 
 User = mongoose.model('User',userSchema);
 

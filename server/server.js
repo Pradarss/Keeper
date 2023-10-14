@@ -1,7 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const notesRoutes = require('./routes/notes');
+const authRoutes = require('./routes/auth');
+const session = require("express-session");
+const passport = require("passport");
 const cors = require("cors");
 
 const app = express();
@@ -16,7 +20,21 @@ app.use(cors({
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use( 
+    session({ 
+      secret: process.env.SECRET,
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+
 app.use('/', notesRoutes);
+app.use('/', authRoutes);
 
 mongoose.connect("mongodb://127.0.0.1:27017/keeperDB", {useNewUrlParser: true})
 .then(function(){
