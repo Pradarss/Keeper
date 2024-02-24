@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
         if (existingUser) {
                 passport.authenticate('local')(req, res, () => {
                   const userData = {
-                    _id: existingUser._id,
+                    key: existingUser._id,
                   }
                   return res.status(200).json({ message: 'Login successful' , user: userData });
                 });
@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
           
                     passport.authenticate('local')(req, res, () => {
                       const userData = {
-                        _id: newUser._id,
+                        key: newUser._id,
                       }
                       return res.status(200).json({ message: 'Registration successful', user: userData });
                     });
@@ -56,8 +56,9 @@ router.post('/login', (req, res) => {
   
 
 router.get('/logout', (req, res) => {
-    req.logout(); 
+  req.logout(() => {
     res.status(200).json({ message: 'Logout successful' });
+});
   });
 
 module.exports = router;

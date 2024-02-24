@@ -35,11 +35,11 @@ header .title {
 }
 
 footer {
-  position: absolute;
   text-align: center;
-  bottom: 0;
-  width: 100%;
+  width: 100vw;
   height: 2.5rem;
+  justify-content: center;
+  display: flex;
 }
 
 footer p {
@@ -178,7 +178,6 @@ form.create-note button {
 }
 
 .row input:focus{
-   /* box-shadow: inset 0px -3px 0px 0px rgba(34,193,195,0.7); */
    box-shadow: inset 0px -3px 0px 0px #f5ba13;
    outline: none;
 }
@@ -198,7 +197,6 @@ form.create-note button {
   color: white;
   font-weight: 700;
   background: #f5ba13;
-  /* background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%); */
   border: 0px;
   cursor: pointer;
   transition: opacity 0.25s ease-out;

@@ -2,7 +2,7 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function Note({ id, title, content, onDelete }) {
+function Noteblock({ id, title, content, onDelete, userId }) {
   function handleDeleteClick() {
     onDelete(id);
   }
@@ -18,4 +18,4 @@ function Note({ id, title, content, onDelete }) {
   );
 }
 
-export default Note;
+export default Noteblock;

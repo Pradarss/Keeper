@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -32,7 +32,9 @@ function Login() {
       });
 
       if (response.status === 200) {
-        navigate('/notes');
+       const userData = await response.json();
+      onLoginSuccess(); 
+        navigate(`/notes/${userData.user.key}`, { state: { userData } });
       } else {
         console.log('Login failed');
       }
@@ -66,7 +68,7 @@ function Login() {
           />
         </div>
         <div id="button" className="row">
-          <button onClick={handleLogin} type="submit">Submit</button>
+          <button onClick={handleLogin} type="submit" to="/notes">Submit</button>
         </div>
       </form>
     </div>

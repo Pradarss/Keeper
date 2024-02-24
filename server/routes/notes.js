@@ -3,23 +3,18 @@ const router = express.Router();
 const Note = require('../models/note'); 
 
 
-router.get('/notes', (req, res) => {
-  // Note.find({})
-  // .populate('user')
-  //   .then((foundNotes) => {
-  //     res.json(foundNotes);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+router.get('/notes/:UserId', (req, res) => {
+  const UserId = req.params.UserId;
+  // console.log(UserId)
 
-  Note.find({})
-  .then(function(foundNotes){
-    res.json(foundNotes);
-  })
-  .catch(function(err){
-    console.log(err);
-  })
+  Note.find({userId : UserId})
+    .then(function(foundNotes) {
+      res.json(foundNotes);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.status(500).json({ error: 'An error occurred while fetching notes' });
+    });
 });
 
 
@@ -27,7 +22,7 @@ router.post('/notes', (req, res) => {
   const newNote = new Note({
     title: req.body.title,
     content: req.body.content,
-    user: req.user._id
+    userId: req.body.userId
   });
 
   newNote

@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useLocation } from "react-router-dom";
 
 function CreateArea({onAdd}) {
+
+  const location = useLocation();
+  const userData = location.state.userData;
 
   const [newNote, setNewNote] = useState({
     title: "",
@@ -23,11 +27,15 @@ function CreateArea({onAdd}) {
   function addNote(event) {
     event.preventDefault();
     if (newNote.title && newNote.content) {
-      onAdd(newNote);
+      const userId = userData ? userData.user.key: ''; 
+    const noteWithUserId = {
+      ...newNote,
+      userId: userId
+    };
+    onAdd(noteWithUserId);
       setNewNote({
         title: "",
         content: "",
-        // userId: ""
       });
     }
   }
