@@ -30,10 +30,12 @@ function App() {
         localStorage.setItem('isLoggedIn', 'false'); 
         console.log("logout successful");
       } else {
+        setIsLoggedIn(false);
         console.error('Logout failed');
       }
     })
     .catch(error => {
+      setIsLoggedIn(false);
       console.error('Error during logout:', error);
     });
   }
