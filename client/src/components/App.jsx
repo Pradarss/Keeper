@@ -15,6 +15,9 @@ function App() {
     if (loggedInStatus === 'true') {
       setIsLoggedIn(true);
     }
+    else {
+      setIsLoggedIn(false); 
+    }
   }, []);
 
   function handleLogin(){
