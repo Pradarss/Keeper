@@ -12,12 +12,13 @@ function App() {
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('isLoggedIn');
-    if (loggedInStatus === 'true') {
-      setIsLoggedIn(true);
-    }
-    else {
-      setIsLoggedIn(false); 
-    }
+    // if (loggedInStatus === 'true') {
+    //   setIsLoggedIn(true);
+    // }
+    // else {
+    //   setIsLoggedIn(false); 
+    // }
+    setIsLoggedIn(loggedInStatus === 'true');
   }, []);
 
   function handleLogin(){
