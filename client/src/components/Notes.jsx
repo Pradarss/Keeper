@@ -21,7 +21,7 @@ useEffect(() => {
   }, [userId]);
 
   function addNote(newNote) {
-    fetch('http://localhost:5000/notes', {
+    fetch('https://keeperserver.onrender.com/notes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ useEffect(() => {
   }
 
   function deleteNote(id) {
-    fetch(`http://localhost:5000/notes/${id}`, {
+    fetch(`https://keeperserver.onrender.com/notes/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
