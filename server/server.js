@@ -11,6 +11,9 @@ const cors = require("cors");
 const app = express();
 const port = 5000;
 
+const username = encodeURIComponent(process.env.USER);
+const password = encodeURIComponent(process.env.PASSWORD);
+
 app.use(cors({
     origin: "http://localhost:3000",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -36,7 +39,8 @@ app.use(
 app.use('/', notesRoutes);
 app.use('/', authRoutes);
 
-mongoose.connect("mongodb://127.0.0.1:27017/keeperDB", {useNewUrlParser: true})
+// mongoose.connect("mongodb://127.0.0.1:27017/keeperDB", {useNewUrlParser: true})
+mongoose.connect(`mongodb+srv://${username}:${password}@myatlasclusteredu.tkmvwoe.mongodb.net/keeperDB?retryWrites=true&w=majority&appName=myAtlasClusterEDU`, {useNewUrlParser: true})
 .then(function(){
     console.log("Successfully connected to mongoDB")
 })
