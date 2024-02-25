@@ -15,7 +15,7 @@ const username = encodeURIComponent(process.env.USER);
 const password = encodeURIComponent(process.env.PASSWORD);
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://keeper001.netlify.app/",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
